@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://db0yihnfqbwae"]
+
+[ext_resource type="PackedScene" uid="uid://c1opvdi32kbx6" path="res://player.tscn" id="1_ktr0u"]
+[ext_resource type="Script" path="res://flappy_bird.gd" id="1_pu4k4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i12t2"]
+size = Vector2(1298, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7n2ns"]
+size = Vector2(118.562, 663.97)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qncdg"]
+
+[node name="FlappyBird" type="Node2D"]
+script = ExtResource("1_pu4k4")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(1, 680)
+collision_layer = 4
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+offset_right = 1298.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(649, 20)
+shape = SubResource("RectangleShape2D_i12t2")
+
+[node name="Player" parent="." instance=ExtResource("1_ktr0u")]
+position = Vector2(289, 406)
+
+[node name="AreaDelete" type="Area2D" parent="."]
+position = Vector2(-68.2811, 351.015)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDelete"]
+position = Vector2(-3.7189, 4.985)
+shape = SubResource("RectangleShape2D_7n2ns")
+
+[node name="Position" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Position"]
+position = Vector2(1147.24, 470.247)
+
+[node name="Marker2D2" type="Marker2D" parent="Position"]
+position = Vector2(1147, 377)
+
+[node name="Marker2D3" type="Marker2D" parent="Position"]
+position = Vector2(1147, 299)
+
+[node name="Marker2D4" type="Marker2D" parent="Position"]
+position = Vector2(1151, 213)
+
+[node name="Marker2D5" type="Marker2D" parent="Position"]
+position = Vector2(1152, 149)
+
+[node name="Marker2D6" type="Marker2D" parent="Position"]
+position = Vector2(1158, 70)
+
+[node name="Marker2D7" type="Marker2D" parent="Position"]
+position = Vector2(1152, 108)
+
+[node name="Marker2D8" type="Marker2D" parent="Position"]
+position = Vector2(1147, 254)
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1179.0
+offset_top = 2.0
+offset_right = 1240.0
+offset_bottom = 33.0
+text = "restart"
+icon = SubResource("ViewportTexture_qncdg")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Point" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 87.0
+offset_bottom = 23.0
+text = "0"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score:"
+
+[connection signal="body_entered" from="AreaDelete" to="." method="_on_area_2d_body_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

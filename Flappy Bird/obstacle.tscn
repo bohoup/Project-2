@@ -1,0 +1,122 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsgs3qmrplmqs"]
+
+[ext_resource type="Script" path="res://obstacle.gd" id="1_xtdfh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6gdj"]
+size = Vector2(40, 738)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgbk4"]
+size = Vector2(40, 149)
+
+[sub_resource type="Animation" id="Animation_b04o4"]
+resource_name = "up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 1079), Vector2(0, 478)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -1012), Vector2(0, -411)]
+}
+
+[sub_resource type="Animation" id="Animation_2dycm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 408)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1120)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6q3ur"]
+_data = {
+"RESET": SubResource("Animation_2dycm"),
+"up": SubResource("Animation_b04o4")
+}
+
+[node name="Obstacle" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_xtdfh")
+
+[node name="Bottom" type="CollisionShape2D" parent="."]
+position = Vector2(0, 408)
+shape = SubResource("RectangleShape2D_m6gdj")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Bottom"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -369.0
+offset_right = 20.0
+offset_bottom = 369.0
+grow_horizontal = 2
+color = Color(0.423169, 0.790306, 0.892169, 1)
+
+[node name="Top" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1120)
+shape = SubResource("RectangleShape2D_m6gdj")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Top"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -369.0
+offset_right = 20.0
+offset_bottom = 369.0
+grow_horizontal = 2
+color = Color(0.423169, 0.790306, 0.892169, 1)
+
+[node name="AreaPoint" type="Area2D" parent="."]
+position = Vector2(-3, 10)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPoint"]
+position = Vector2(3, 23.5)
+shape = SubResource("RectangleShape2D_rgbk4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6q3ur")
+}
+
+[connection signal="body_entered" from="AreaPoint" to="." method="_on_area_2d_body_entered"]
