@@ -1,0 +1,173 @@
+[gd_scene load_steps=6 format=3 uid="uid://dc82a63d85rjy"]
+
+[ext_resource type="Script" path="res://Scenes/Level/pong.gd" id="1_0ql7a"]
+[ext_resource type="Script" path="res://Scenes/Level/Player.gd" id="2_5res5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq4po"]
+size = Vector2(40, 132)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0yqu"]
+size = Vector2(1337, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0jop"]
+size = Vector2(140.638, 696.874)
+
+[node name="Pong" type="Node2D"]
+script = ExtResource("1_0ql7a")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(45, 317)
+motion_mode = 1
+script = ExtResource("2_5res5")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -66.0
+offset_right = 20.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_jq4po")
+
+[node name="Com" type="CharacterBody2D" parent="."]
+position = Vector2(1263, 326)
+motion_mode = 1
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Com"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -66.0
+offset_right = 20.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Com"]
+shape = SubResource("RectangleShape2D_jq4po")
+
+[node name="BatasAtas" type="StaticBody2D" parent="."]
+position = Vector2(576, 20)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="BatasAtas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -20.0
+offset_right = 760.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BatasAtas"]
+position = Vector2(92, 0)
+shape = SubResource("RectangleShape2D_m0yqu")
+
+[node name="BatasBawah" type="StaticBody2D" parent="."]
+position = Vector2(576, 677)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="BatasBawah"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -20.0
+offset_right = 761.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BatasBawah"]
+position = Vector2(92.5, 0)
+shape = SubResource("RectangleShape2D_m0yqu")
+
+[node name="ComputerScore" type="Area2D" parent="."]
+position = Vector2(-27.819, 287.937)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ComputerScore"]
+position = Vector2(-44.681, 60.563)
+shape = SubResource("RectangleShape2D_i0jop")
+
+[node name="PlayerScore" type="Area2D" parent="."]
+position = Vector2(1453, 288)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerScore"]
+position = Vector2(-44.681, 60.563)
+shape = SubResource("RectangleShape2D_i0jop")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(602, 316)
+metadata/_edit_lock_ = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="OK" type="VBoxContainer" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.436
+anchor_top = 0.063
+anchor_right = 0.523
+anchor_bottom = 0.099
+offset_left = -0.272034
+offset_top = 0.175999
+offset_right = 2.50403
+offset_bottom = -0.152008
+grow_horizontal = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Score" type="Label" parent="UI/OK"]
+layout_mode = 2
+text = "Score
+"
+horizontal_alignment = 1
+
+[node name="Score" type="HBoxContainer" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.457
+anchor_top = 0.099
+anchor_right = 0.509
+anchor_bottom = 0.168
+offset_left = 0.536011
+offset_top = -0.152008
+offset_right = -0.367981
+offset_bottom = 0.135994
+theme_override_constants/separation = 15
+
+[node name="Player" type="Label" parent="UI/Score"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Label2" type="Label" parent="UI/Score"]
+layout_mode = 2
+text = "-"
+
+[node name="Com" type="Label" parent="UI/Score"]
+layout_mode = 2
+text = "0"
+
+[connection signal="body_entered" from="ComputerScore" to="." method="_on_computer_score_body_entered"]
+[connection signal="body_entered" from="PlayerScore" to="." method="_on_player_score_body_entered"]
